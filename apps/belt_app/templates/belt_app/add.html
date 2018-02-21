@@ -1,0 +1,30 @@
+<html>
+<head>
+  <title>Add a Trip</title>
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div>
+        <a href="/travels">Home</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <h2>Hello: {{request.session.username}}!</h2>
+    <form action="/travels/addtrip" method="POST">
+        {% csrf_token %}
+        <!-- hidden value is planner's user id -->
+        <input type="hidden" name="id" value={{request.session.id}}> 
+        Destination: <input type="text" name="place">
+        Description: <input type="text" name="description">
+        Travel Date From: <input type="date" name="start">
+        Travel Date To: <input type="date" name="end">
+        <input type="submit" value="Add">
+    </form>
+    
+</body>
+</html>
